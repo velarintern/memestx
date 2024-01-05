@@ -40,7 +40,7 @@ const Deploy = () => {
     setIsMounted(true)
   }, [setIsMounted])
 
-  const template = (d: FormValues) => `(impl-trait '${proxyAddress(network)}.ft-trait.ft-trait)44r3353
+  const template = (d: FormValues) => `(impl-trait '${proxyAddress(network)}.ft-trait.ft-trait)
 
   (define-constant MAX_SUPPLY (* u${d.supply} (pow u10 u${d.decimals})))
 

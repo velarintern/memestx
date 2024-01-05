@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuth, appConfig } from "../store/store";
 import ConnectWallet from "../components/ConnectWallet";
 
@@ -10,6 +10,12 @@ import { useConnect } from '../hooks/useConnect';
 function MyApp({ Component, pageProps }) {
   const { session } = useAuth()
   const router = useRouter();
+
+  useEffect(() => {
+    if (router.route === '/') {
+      router.push('/deploy');
+    }
+  }, [])
 
   return (
     <>

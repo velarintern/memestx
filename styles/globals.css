@@ -134,7 +134,7 @@ button.Connect {
 }
 
 .navbar {
-  background-color: #0c0c0c;
+  background-color: transparent;
   list-style-type: none;
   margin: 0;
   padding: 0;
