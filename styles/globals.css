@@ -147,6 +147,7 @@ button.Connect {
   border-bottom: 1px solid rgba(31, 31, 31, 1);;
   top: 0;
   width: 100%;
+  min-height: 58px;
 }
 
 .navbar .title {
