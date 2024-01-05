@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth, appConfig } from "../store/store";
 import ConnectWallet from "../components/ConnectWallet";
 
@@ -8,13 +8,15 @@ import { useRouter } from 'next/router';
 import { useConnect } from '../hooks/useConnect';
 
 function MyApp({ Component, pageProps }) {
-  const { session } = useAuth()
+  const { session, isConnected } = useAuth();
+  const [domLoaded, setDomLoaded] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (router.route === '/') {
       router.push('/deploy');
     }
+    setDomLoaded(true)
   }, [])
 
   return (
@@ -50,29 +52,30 @@ function MyApp({ Component, pageProps }) {
             <span>Launched 700+ Meme tokens</span>
           </div>
         </div>
-
-        {router.route !== "/" && (
-          <div className='contract-form-container'>
-            {true ? (
-              <React.Fragment>
-                <div className='form-navbar'>
-                  <Link href="/deploy">
-                    <a className={ router.route === "/deploy" ? 'active' : '' } href=''>Deploy</a>
-                  </Link>
-                  <Link href="/distribute">
-                    <a className={ router.route === "/distribute" ? 'active' : '' } href=''>Distribute</a>
-                  </Link>
-                </div>
-                <div className='contract-form-body'>
-                    <Component {...pageProps} />
-                </div>
+        {domLoaded && (
+          router.route !== "/" && (
+            <div className='contract-form-container'>
+                <React.Fragment>
+                  <div className='form-navbar'>
+                    <Link href="/deploy">
+                      <a className={ router.route === "/deploy" ? 'active' : '' } href=''>Deploy</a>
+                    </Link>
+                    <Link href="/distribute">
+                      <a className={ router.route === "/distribute" ? 'active' : '' } href=''>Distribute</a>
+                    </Link>
+                  </div>
+                {isConnected() ? (
+                  <div className='contract-form-body'>
+                      <Component {...pageProps} />
+                  </div>
+                    ) : (
+                      <div style={{ maxWidth: 'fit-content', display: 'flex', padding: '15px', margin: '0 auto', minHeight: 200, alignItems: 'center', justifyContent: 'center' }}>
+                          <ConnectWallet fromBody={true} />
+                      </div>
+                    )}
               </React.Fragment>
-            ) : (
-              <div style={{ maxWidth: 'fit-content', padding: '15px', margin: '0 auto' }}>
-                  <ConnectWallet fromBody={true} />
-              </div>
-            )}
-          </div>
+            </div>
+          )
         )}
       </section>
     </>

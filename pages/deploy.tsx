@@ -139,11 +139,12 @@ const Deploy = () => {
           <label>URI</label>
           <input {...register('uri')} placeholder="https://example.com" />
         </div>
-
-        <button type="submit" className="Submit deploy-btn">
-          <span>Deploy Token</span>
-          <img src="/play.svg" alt="" />
-        </button>
+        <div className="form-footer">
+          <button type="submit" className="Submit deploy-btn">
+            <span>Deploy Token</span>
+            <img src="/play.svg" alt="" />
+          </button>
+        </div>
       </form>
     </div>
   );

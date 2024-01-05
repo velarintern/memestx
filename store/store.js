@@ -7,6 +7,11 @@ const userSession = new UserSession({ appConfig });
 export const useAuth = create((set, get) => ({
   session: userSession,
 
+
+  isConnected: () => {
+    return userSession && userSession.isUserSignedIn();
+  },
+
   connect: async () => {
     const session = await showConnect({
       appDetails: {

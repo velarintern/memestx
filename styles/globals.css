@@ -239,7 +239,6 @@ form .input input:focus {
   color: #555;
   padding: 10px 20px 10px 20px;
   width: fit-content;
-  margin-left: 74.5%;;
 }
 
 .mb-5 {
@@ -385,4 +384,42 @@ h1, h2 {
 
 .modal-container .modal-body {
   background-color: rgba(19, 19, 19, 1) !important;
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 700px) {
+  .onboarding {
+    margin-top: 20%;
+  }
+  
+  .onboarding .launch {
+    font-size: 48px;
+    line-height: 50px;
+  }
+
+  .onboarding .memecoin {
+    font-size: 48px;
+    line-height: 50px;
+  }
+
+  .deployed-contracts {
+    overflow-x: auto;
+  }
+
+  .onboarding .details {
+    width: 80% !important;
+    margin-top: 2px !important;
+  }
+
+  .contract-form-container {
+    margin: 20px;
+  }
+  .contract-form-body {
+    width: 90% !important;
+  }
 }

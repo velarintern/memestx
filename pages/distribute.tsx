@@ -176,11 +176,12 @@ const Distribute = () => {
         }>
           Add holder
         </button>
-
-        <button type="submit" className="Submit deploy-btn" style={{ marginLeft: '72%' }}>
-          <span>Distribute Token</span>
-          <img src="/play.svg" alt="" />
-        </button>
+        <div className="form-footer">
+          <button type="submit" className="Submit deploy-btn">
+            <span>Distribute Token</span>
+            <img src="/play.svg" alt="" />
+          </button>
+        </div>
       </form>
     </div>
   );
