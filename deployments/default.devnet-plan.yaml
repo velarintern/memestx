@@ -1,0 +1,51 @@
+---
+id: 0
+name: Devnet deployment
+network: devnet
+stacks-node: "http://localhost:20443"
+bitcoin-node: "http://devnet:devnet@localhost:18443"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        # - contract-publish:
+        #     contract-name: sip-010-trait-ft-standard
+        #     expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+        #     cost: 4360
+        #     path: contracts/sip-010-trait-ft-standard.clar
+        #     anchor-block-only: true
+        #     clarity-version: 2
+        - contract-publish:
+            contract-name: ft-plus-trait
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 4360
+            path: contracts/ft-plus-trait.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: batch-mint
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 4360
+            path: contracts/batch-mint.clar
+            anchor-block-only: true
+            clarity-version: 2
+    - id: 1
+      transactions:
+        - contract-publish:
+            contract-name: template
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 4360
+            path: contracts/template.clar
+            anchor-block-only: true
+            clarity-version: 2
+    # - id: 2
+    #   transactions:
+    #     - contract-call:
+    #         contract-id: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.batch-mint
+    #         expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+    #         method: batchmint
+    #         parameters:
+    #           - "'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.template"
+    #           - "[{ user: 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5, amt: u10000 },{ user: 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG, amt: u100000 }]"
+    #         cost: 14537
+      epoch: "2.05"

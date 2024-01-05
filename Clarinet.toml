@@ -1,0 +1,12 @@
+[project]
+name = 'meme-launch'
+telemetry = false
+[project.cache_location]
+path = ".cache"
+
+[contracts.ft-plus-trait]
+path = "contracts/ft-plus-trait.clar"
+[contracts.batch-mint]
+path = "contracts/batch-mint.clar"
+[contracts.template]
+path = "contracts/template.clar"

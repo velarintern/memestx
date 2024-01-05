@@ -1,0 +1,39 @@
+{
+  "name": "react-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start-local": "clarinet integrate && next dev",
+    "start": "next dev",
+    "build": "next build",
+    "test": "vitest run",
+    "test:report": "vitest run -- --coverage --costs",
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@hirosystems/clarinet-sdk": "^1.2.0",
+    "@stacks/connect": "^7.1.1",
+    "@stacks/network": "^6.1.0",
+    "@stacks/transactions": "^6.1.0",
+    "chokidar-cli": "^3.0.0",
+    "next": "12.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.49.2",
+    "react-number-format": "^5.3.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.6",
+    "vitest": "^1.0.1",
+    "vitest-environment-clarinet": "^1.1.0",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.46",
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5"
+  }
+}
