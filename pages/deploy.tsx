@@ -110,7 +110,7 @@ const Deploy = () => {
         </div>
         <div className="input">
           <label>Symbol</label>
-          <input {...register('symbol', { required: true })} placeholder="e.g Velar" />
+          <input {...register('symbol', { required: true })} placeholder="Meme" />
         </div>
         <div className="input">
           <label>Decimals</label>

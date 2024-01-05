@@ -22,12 +22,12 @@ function MyApp({ Component, pageProps }) {
       <div className="navbar">
         <h4 className='title'>MemeSTX</h4>
         <div className='actions'>
-          <Link href="/deploy">
+          {/* <Link href="/deploy">
             <a className={ router.route === "/deploy" ? 'active' : '' } href=''>Deploy</a>
           </Link>
           <Link href="/distribute">
             <a className={ router.route === "/distribute" ? 'active' : '' } href=''>Distribute</a>
-          </Link>
+          </Link> */}
         </div>
         <div className='wallet'>
           <ConnectWallet />
