@@ -92,6 +92,8 @@ code {
 
 .Holder {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 10px;
   flex-direction: row;
@@ -103,8 +105,14 @@ code {
 
 .Holder button {
   max-width: 40px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(156, 76, 76);
 }
+
 
 button {
     appearance:none;
@@ -424,3 +432,204 @@ h1, h2 {
     width: 90% !important;
   }
 }
+
+.wallet-connect-modal.active {
+  display: block !important;
+  visibility: visible;
+}
+
+.wallet-connect-modal {
+  position: fixed;
+  transition: all 1s ease-in;
+  transition: opacity 1s ease-out;
+  visibility: hidden;
+  display: none;
+  width: 100%;
+  right: 2%;
+  top: 64px;
+  padding: 24px 12px 12px 12px;
+  border: 1px solid rgba(31, 31, 31, 1);
+  background-color: rgba(19, 19, 19, 1);
+  border-radius: 8px;
+  max-width: 350px;
+}
+
+.wallet-connect-box h2 {
+  font-weight: 300;
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.wallet-connect-box p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.48);
+  margin-bottom: 1.6em;
+}
+
+.wallet-connect-box .wallets {
+  background-color: rgba(31, 31, 31, 1);
+  border-radius: 8px;
+}
+
+.wallet-connect-box .wallets .wallet {
+  padding: 12px;
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.wallet-connect-box .wallets .wallet.first {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.wallet-connect-box .wallets .wallet.switch {
+  background: rgba(48, 28, 28, 0.4);
+  color: rgba(240, 61, 61, 1);
+}
+
+.wallet-connect-box .wallets .wallet .wallet-left {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.transaction-status {
+  display: flex;
+  padding: 3.5em 0em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  max-width: 250px;
+}
+
+.transaction-status h2 {
+  font-weight: 300;
+  color: #fff;
+  font-size: 16px;
+}
+
+.transaction-status p {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #5a5a5a;
+}
+
+.transaction-status a {
+  padding: 8px 16px 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  gap: 5px;
+  color: #000;
+  background-color: #fff;
+  box-shadow: 0px -3px 0px 1px hsba(210, 2%, 4%, 0.22) inset;
+  max-width: 180px;
+}
+
+/* LOADER */
+
+.modal-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lds-done {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 101px;
+    height: 101px;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    border-width: 5px;
+    border-color: #E4761B;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 101px;
+    height: 101px;
+  }
+  
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 101px;
+    height: 101px;
+    border: 5px solid #ccc;
+    border-radius: 70%;
+    animation: lds-ring calc(1.2s / var(--d,1)) cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #E4761B transparent transparent transparent;
+  }
+  
+  .lds-ring div:nth-child(1) {
+    animation-delay: calc(-0.45s / var(--d,1));
+  }
+  
+  .lds-ring div:nth-child(2) {
+    animation-delay: calc(-0.3s / var(--d,1));
+  }
+  
+  .lds-ring div:nth-child(3) {
+    animation-delay: calc(-0.15s / var(--d,1));
+  }
+  
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg)
+    }
+  }
+
+  .wave {
+    position:relative;
+    text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+    .dot {
+      display:inline-block;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      margin-right:3px;
+      background:#303131;
+      animation: wave 1.3s linear infinite;
+  
+      &:nth-child(2) {
+        animation-delay: -1.1s;
+      }
+  
+      &:nth-child(3) {
+        animation-delay: -0.9s;
+      }
+    }
+  }
+  
+  @keyframes wave {
+    0%, 60%, 100% {
+      transform: initial;
+      background-color: #303131;
+    }
+  
+    30% {
+      background-color: #eee;
+      transform: translateY(-8px);
+    }
+  }

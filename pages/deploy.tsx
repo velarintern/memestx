@@ -7,6 +7,7 @@ import { NumericFormat } from 'react-number-format';
 import { useAuth } from "../store/store";
 import { proxyAddress, openTx } from "../src/helpers";
 import { PostConditionMode } from "@stacks/transactions";
+import { TransactionStatus } from "../components/TransactionStatus";
 
 const network = new StacksTestnet()
 
@@ -20,7 +21,7 @@ type FormValues = {
 
 const Deploy = () => {
 
-  const { session } = useAuth()
+  const { session, getProvider } = useAuth()
 
   const defaults = {
     name: '',
@@ -31,6 +32,7 @@ const Deploy = () => {
   }
 
   const [isMounted, setIsMounted] = useState(false)
+  const [ txId, setTxId ] = useState('');
 
   const { register, handleSubmit, setValue, control, formState: { errors } } = useForm({
       defaultValues: defaults,
@@ -90,8 +92,8 @@ const Deploy = () => {
       contractName: data.name,
       codeBody: template(data),
       postConditionMode: PostConditionMode.Allow,
-      onFinish: (data) => openTx(network, data),
-    });
+      onFinish: (data) => setTxId(data.txId),      
+    }, getProvider() );
   }
 
   if (!isMounted || !session?.isUserSignedIn()) {
@@ -102,50 +104,56 @@ const Deploy = () => {
 
   return (
     <div className="deploy">
-      <h4 className="form-title">Deploy</h4>
-      <form onSubmit={handleSubmit(deploy)}>
-        <div className="input">
-          <label>Name</label>
-          <input {...register('name', { required: true })} placeholder="Meme Name" className="form-control-material"/>
-        </div>
-        <div className="input">
-          <label>Symbol</label>
-          <input {...register('symbol', { required: true })} placeholder="Meme" />
-        </div>
-        <div className="input">
-          <label>Decimals</label>
-          <input type="number" {...register('decimals', { required: true, min: 0, max: 10 })} placeholder="6" />
-        </div>
-        <div  className="input">
-          <label>Supply</label>
-          <Controller
-            control={control}
-            name="supply"
-            rules={{ required: true }}
-            render={({ field }) => (
-                <NumericFormat
-                  {...field}
-                  thousandSeparator=","
-                  min={1}
-                  decimalScale={0}
-                  onValueChange={setSupply}
-                  onChange={() => null}
-                  placeholder="10,000,000,000"
-                />
-            )}
-          />
-        </div>
-        <div className="input">
-          <label>URI</label>
-          <input {...register('uri')} placeholder="https://example.com" />
-        </div>
-        <div className="form-footer">
-          <button type="submit" className="Submit deploy-btn">
-            <span>Deploy Token</span>
-            <img src="/play.svg" alt="" />
-          </button>
-        </div>
-      </form>
+      {txId ? (
+        <TransactionStatus 
+          title={'Creating your Meme token'}
+          network={network} txId={txId} />
+      ) : (
+        <form onSubmit={handleSubmit(deploy)}>
+          <h4 className="form-title">Deploy</h4>
+          <div className="input">
+            <label>Name</label>
+            <input {...register('name', { required: true })} placeholder="Meme Name" className="form-control-material"/>
+          </div>
+          <div className="input">
+            <label>Symbol</label>
+            <input {...register('symbol', { required: true })} placeholder="Meme" />
+          </div>
+          <div className="input">
+            <label>Decimals</label>
+            <input type="number" {...register('decimals', { required: true, min: 0, max: 10 })} placeholder="6" />
+          </div>
+          <div  className="input">
+            <label>Supply</label>
+            <Controller
+              control={control}
+              name="supply"
+              rules={{ required: true }}
+              render={({ field }) => (
+                  <NumericFormat
+                    {...field}
+                    thousandSeparator=","
+                    min={1}
+                    decimalScale={0}
+                    onValueChange={setSupply}
+                    onChange={() => null}
+                    placeholder="10,000,000,000"
+                  />
+              )}
+            />
+          </div>
+          <div className="input">
+            <label>URI</label>
+            <input {...register('uri')} placeholder="https://example.com" />
+          </div>
+          <div className="form-footer">
+            <button type="submit" className="Submit deploy-btn">
+              <span>Deploy Token</span>
+              <img src="/play.svg" alt="" />
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };
