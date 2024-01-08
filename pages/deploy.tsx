@@ -32,7 +32,7 @@ const Deploy = () => {
   }
 
   const [isMounted, setIsMounted] = useState(false)
-  const [ txId, setTxId ] = useState('');
+  const [ txId, setTxId ] = useState('3');
 
   const { register, handleSubmit, setValue, control, formState: { errors } } = useForm({
       defaultValues: defaults,
@@ -106,6 +106,9 @@ const Deploy = () => {
     <div className="deploy">
       {txId ? (
         <TransactionStatus 
+          onClose={() => {
+            setTxId('')
+          }}
           title={'Creating your Meme token'}
           network={network} txId={txId} />
       ) : (

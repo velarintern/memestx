@@ -37,7 +37,7 @@ const ConnectWallet = (props) => {
   }
 
   const xverseWalletConnect = () => {
-    if (isMobile()) {
+    if (!isStacksWalletInstalled() && isMobile()) {
         setTimeout(() => {
             window.location.href = "https://www.xverse.app/"
         }, 30)

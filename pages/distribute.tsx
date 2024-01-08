@@ -124,6 +124,9 @@ const Distribute = () => {
     <div className="deploy">
       {txId ? (
         <TransactionStatus  
+          onClose={() => {
+            setTxId('')
+          }}
           title={'Distributing your Meme token'}
           network={network} txId={txId} />
       ) : (
