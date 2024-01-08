@@ -47,9 +47,10 @@ const Distribute = () => {
     holders: [],
   }
 
-  const { register, handleSubmit, reset, setValue, control, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, reset, setValue, getValues, watch, control, formState: { errors } } = useForm<FormValues>({
     defaultValues: defaults,
   })
+
 
   const { fields, append, remove } = useFieldArray<FormValues, 'holders', 'id'>({
     control,
@@ -91,7 +92,7 @@ const Distribute = () => {
 
   function distribute (data: FormValues) {
     const distribution = listCV(
-      fields.map(({ address, amount }) =>
+      getValues('holders').map(({ address, amount }) =>
         tupleCV({
           user: standardPrincipalCV(address),
           amt: uintCV(amount),
@@ -116,12 +117,14 @@ const Distribute = () => {
     }, getProvider() )
   }
 
+
   if (!isMounted || !session?.isUserSignedIn()) {
     return null;
   }
 
-  const setAmount = (index, { floatValue }) =>
+  const setAmount = (index, { floatValue }) => {
     setValue(`holders.${index}.amount` as const, floatValue)
+  }
 
   return (
     <div className="deploy">
@@ -189,12 +192,12 @@ const Distribute = () => {
                     onValueChange={(args) => setAmount(index, args)}
                     placeholder="Tokens"
                   />
-                  <button className="X" onClick={() => remove(index)}>X</button>
+                  <button className="X" type="button" onClick={() => remove(index)}>X</button>
                 </div>
               ))}
             </div>
 
-            <button className="mb-8" onClick={(e) => { 
+            <button type="button" className="mb-8" onClick={(e) => { 
               e.preventDefault();
               append({ address: '', amount: 0 })}
             }>
