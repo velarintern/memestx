@@ -28,9 +28,16 @@ export const validateContractAddress = (adr: string) => {
 
 export function userAddress (session :UserSession, network: StacksNetwork) {
   try {
-    return network?.isMainnet()
-      ? session?.loadUserData()?.profile?.stxAddress?.mainnet
-      : session?.loadUserData()?.profile?.stxAddress?.testnet
+    const network = Config.NETWORK;
+    if (network === NETWORKS.MAINNET) {
+      return session?.loadUserData()?.profile?.stxAddress?.mainnet;
+    } else if (network === NETWORKS.TESTNET) {
+      return session?.loadUserData()?.profile?.stxAddress?.testnet;
+    } else if (network === NETWORKS.DEVNET) {
+      return 'DEVNET';
+    } else {
+      return session?.loadUserData()?.profile?.stxAddress?.testnet;
+    }
   } catch (_) {
     return ''
   }
