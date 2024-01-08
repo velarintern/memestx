@@ -37,7 +37,7 @@ const ConnectWallet = (props) => {
   }
 
   const xverseWalletConnect = () => {
-    if (!isStacksWalletInstalled() && isMobile()) {
+    if (isMobile()) {
         setTimeout(() => {
             window.location.href = "https://www.xverse.app/"
         }, 30)
@@ -50,16 +50,20 @@ const ConnectWallet = (props) => {
   }
 
   const onWalletClick = (walletId) => {
-    if (!isLeather() && walletId === 'leather') {
-        window.open('https://leather.io/', '_blank')
-    } else if (!isXVerse() && walletId === 'xverse') {
-        window.open('https://www.xverse.app/', '_blank')
+    if (isMobile()) {
+      xverseWalletConnect();
     } else {
-      if (walletId === 'xverse') {
-        xverseWalletConnect();
+      if (!isLeather() && walletId === 'leather') {
+          window.open('https://leather.io/', '_blank')
+      } else if (!isXVerse() && walletId === 'xverse') {
+          window.open('https://www.xverse.app/', '_blank')
       } else {
-        connect(walletId);
-      }
+        if (walletId === 'xverse') {
+          xverseWalletConnect();
+        } else {
+          connect(walletId);
+        }
+    }
     }
   }
 
@@ -78,31 +82,43 @@ const ConnectWallet = (props) => {
             <h2 data-walletmodal="1">Hey! Connect your wallet first...</h2>
             <p data-walletmodal="1">Connecting wallet makes your experience 10x better.</p>
             <div data-walletmodal="1" className="wallets">
-
-              <div onClick={() => onWalletClick('leather') } data-walletmodal="1" className="wallet first">
-                  <div className="wallet-left">
-                      <img data-walletmodal="1" src="/leather.svg" alt="" />
-                      <span data-walletmodal="1">Leather</span>
-                      {!isLeather() && (
-                        <span data-walletmodal="1" style={{ color: '#aaa', fontSize: 12, position: 'relative', top: 2 }}>Not Installed</span>
-                      )}
+              { !isMobile() && (
+                <React.Fragment>
+                  <div onClick={() => onWalletClick('leather') } data-walletmodal="1" className="wallet first">
+                        <div className="wallet-left">
+                            <img data-walletmodal="1" src="/leather.svg" alt="" />
+                            <span data-walletmodal="1">Leather</span>
+                            {!isLeather() && (
+                              <span data-walletmodal="1" style={{ color: '#aaa', fontSize: 12, position: 'relative', top: 2 }}>Not Installed</span>
+                            )}
+                        </div>
+                        {!isLeather() && (
+                          <img data-walletmodal="1" src="/wallet-arrow.svg" alt="" />
+                        )}
                   </div>
-                  {!isLeather() && (
-                    <img data-walletmodal="1" src="/wallet-arrow.svg" alt="" />
-                  )}
-              </div>
-              <div onClick={() => onWalletClick('xverse') } data-walletmodal="1" className="wallet">
+                  <div onClick={() => onWalletClick('xverse') } data-walletmodal="1" className="wallet">
+                        <div className="wallet-left">
+                          <img data-walletmodal="1" src="/xverse.svg" alt="" />
+                          <span data-walletmodal="1">Xverse</span>
+                          {!isXVerse() && (
+                            <span data-walletmodal="1" style={{ color: '#aaa', fontSize: 12, position: 'relative', top: 2 }}>Not Installed</span>
+                          )}
+                        </div>
+                        {!isXVerse() && (
+                          <img data-walletmodal="1" src="/wallet-arrow.svg" alt="" />
+                        )}
+                  </div>
+                </React.Fragment>
+              )}
+
+              {isMobile() && (
+                <div onClick={() => onWalletClick('xverse') } data-walletmodal="1" className="wallet">
                   <div className="wallet-left">
                     <img data-walletmodal="1" src="/xverse.svg" alt="" />
                     <span data-walletmodal="1">Xverse</span>
-                    {!isXVerse() && (
-                      <span data-walletmodal="1" style={{ color: '#aaa', fontSize: 12, position: 'relative', top: 2 }}>Not Installed</span>
-                    )}
                   </div>
-                  {!isXVerse() && (
-                    <img data-walletmodal="1" src="/wallet-arrow.svg" alt="" />
-                  )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
       </div>
