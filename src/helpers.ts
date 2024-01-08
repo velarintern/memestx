@@ -41,17 +41,17 @@ const isDevnet = (network: StacksNetwork) =>
 
 export const proxyAddress = (network: StacksNetwork) =>
   network.isMainnet()
-    ? ''
+    ? 'SP20X3DC5R091J8B6YPQT638J8NR1W83KN6TN5BJY' // mainnet
       : isDevnet(network)
         ? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM' //'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM'
-        : 'ST20X3DC5R091J8B6YPQT638J8NR1W83KN6JQ4P6F'
+        : 'ST20X3DC5R091J8B6YPQT638J8NR1W83KN6JQ4P6F' //testnet
 
 export const explorerAddress = (network: StacksNetwork, txid: string) =>
   network?.isMainnet()
-    ? `https://explorer.hiro.so/txid/${txid}?chain=mainnet`
+    ? `https://explorer.hiro.so/txid/${txid}?chain=mainnet` //mainnet
       : isDevnet(network)
         ? `http://localhost:8000/txid/${txid}?chain=testnet&api=http://localhost:3999`
-        : `https://explorer.hiro.so/txid/${txid}/?chain=testnet`
+        : `https://explorer.hiro.so/txid/${txid}/?chain=testnet` // testnet
 
 export function openTx(network: StacksNetwork, data: FinishedTxData) {
   console.log(data)
