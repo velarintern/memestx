@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { openContractCall } from '@stacks/connect';
-
-import { StacksDevnet, StacksTestnet } from "@stacks/network";
 import {
   contractPrincipalCV,
   standardPrincipalCV,
@@ -12,11 +10,11 @@ import {
 import { useForm, useFieldArray } from "react-hook-form";
 import { NumericFormat } from 'react-number-format';
 import { useAuth } from "../store/store";
-import { openTx, userAddress, proxyAddress, validateAddress, validateContractAddress } from "../src/helpers";
+import { openTx, userAddress, proxyAddress, validateAddress, validateContractAddress, getNetwork } from "../src/helpers";
 import { TransactionStatus } from "../components/TransactionStatus";
 import { Loader } from "../components/CirclLoader";
 
-const network = new StacksTestnet()
+const network = getNetwork();
 
 type Holder = {
   address: string,
@@ -102,7 +100,7 @@ const Distribute = () => {
     openContractCall({
       network, 
       contractName: 'batch-mint',
-      contractAddress: proxyAddress(network),
+      contractAddress: proxyAddress(),
       functionName: 'batchmint-and-set-owner',
       functionArgs: [
         contractPrincipalCV(address, data.name),

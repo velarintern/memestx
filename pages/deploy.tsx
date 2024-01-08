@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { openContractDeploy } from '@stacks/connect';
-
-import { StacksDevnet, StacksTestnet } from "@stacks/network";
 import { useForm, Controller } from "react-hook-form";
 import { NumericFormat } from 'react-number-format';
 import { useAuth } from "../store/store";
-import { proxyAddress, openTx } from "../src/helpers";
+import { proxyAddress, openTx, getNetwork } from "../src/helpers";
 import { PostConditionMode } from "@stacks/transactions";
 import { TransactionStatus } from "../components/TransactionStatus";
-
-const network = new StacksTestnet()
+import { Config } from "../config";
+const network = getNetwork();
 
 type FormValues = {
   name: string,
@@ -42,7 +40,7 @@ const Deploy = () => {
     setIsMounted(true)
   }, [setIsMounted])
 
-  const template = (d: FormValues) => `(impl-trait '${proxyAddress(network)}.ft-trait.ft-trait)
+  const template = (d: FormValues) => `(impl-trait '${proxyAddress()}.ft-trait.ft-trait)
 
   (define-constant MAX_SUPPLY (* u${d.supply} (pow u10 u${d.decimals})))
 
