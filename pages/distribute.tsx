@@ -47,7 +47,7 @@ const Distribute = () => {
     holders: [],
   }
 
-  const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, reset, setValue, control, formState: { errors } } = useForm<FormValues>({
     defaultValues: defaults,
   })
 
@@ -109,7 +109,10 @@ const Distribute = () => {
         standardPrincipalCV(data.recipient),
         distribution,
       ],
-      onFinish: (data) => setTxId(data.txId),
+      onFinish: (data) => { 
+        reset(defaults);
+        setTxId(data.txId)
+      },
     }, getProvider() )
   }
 

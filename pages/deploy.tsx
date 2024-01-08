@@ -32,9 +32,9 @@ const Deploy = () => {
   }
 
   const [isMounted, setIsMounted] = useState(false)
-  const [ txId, setTxId ] = useState('3');
+  const [ txId, setTxId ] = useState('');
 
-  const { register, handleSubmit, setValue, control, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, control, reset, formState: { errors } } = useForm({
       defaultValues: defaults,
   });
 3
@@ -92,7 +92,10 @@ const Deploy = () => {
       contractName: data.name,
       codeBody: template(data),
       postConditionMode: PostConditionMode.Allow,
-      onFinish: (data) => setTxId(data.txId),      
+      onFinish: (data) => { 
+        reset(defaults);
+        setTxId(data.txId)
+      },      
     }, getProvider() );
   }
 

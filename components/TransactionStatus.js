@@ -11,7 +11,7 @@ export const TransactionStatus = (props) => {
     useEffect(() => {
         setTimeout(() => {
             props.onClose && props.onClose();
-        }, 5000);
+        }, 6000);
     }, []);
 
     return (
