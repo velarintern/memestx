@@ -153,7 +153,7 @@ const Distribute = () => {
               <label>Token name</label>
               <input
                 {...register('name', { required: true, validate: validateContractAddress})}
-                placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.TOKEN"
+                placeholder="Token"
               />
             </div>
             <div className="input">

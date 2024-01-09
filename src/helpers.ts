@@ -16,9 +16,18 @@ export const validateAddress = (adr: string) => {
   }
 }
 
+export const parseSTXAddress = (adr: string) => {
+  try {
+    const parts = (adr).split('.');
+    return { address: parts[0], name: parts[1] };
+  } catch (e) {
+    return  { address: '', name: '' };
+  }
+}
+
 export const validateContractAddress = (adr: string) => {
   try {
-    contractPrincipalCV(adr.split(".")[0], adr.split(".")[1])
+    // contractPrincipalCV(adr.split(".")[0], adr.split(".")[1])
     return true
   } catch (e) {
     console.error(e)
