@@ -156,6 +156,15 @@ const Distribute = () => {
                 placeholder="Token"
               />
             </div>
+            
+            <div className="input">
+              <label>Recipient</label>
+              <input
+                {...register('recipient', { required: true, validate: validateAddress })}
+                placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+              />
+            </div>
+
             <div className="input">
               <label>Owner</label>
               <input
@@ -166,13 +175,7 @@ const Distribute = () => {
                 {errors.owner?.message && ( <span>{errors.owner?.message}</span> )}
               </div> */}
             </div>
-            <div className="input">
-              <label>Recipient</label>
-              <input
-                {...register('recipient', { required: true, validate: validateAddress })}
-                placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-              />
-            </div>
+            
 
             <div className="input">
               <label>Holders</label>
