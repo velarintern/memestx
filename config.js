@@ -3,6 +3,3 @@ export const Config = {
     PROXY_ADDRESS: process.env.NEXT_PUBLIC_PROXY_ADDRESS
 }
 
-
-console.log(Config);
-
