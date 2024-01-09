@@ -24,8 +24,8 @@ const Deploy = () => {
   const defaults = {
     name: '',
     symbol: '',
-    decimals: 0,
-    supply: 0,
+    decimals: '',
+    supply: '',
     uri: '',
   }
 
@@ -125,7 +125,7 @@ const Deploy = () => {
           </div>
           <div className="input">
             <label>Decimals</label>
-            <input type="number" {...register('decimals', { required: true, min: 0, max: 10 })} placeholder="6" />
+            <input type="number" {...register('decimals', { required: true, min: 0, max: 10 })} placeholder="0 - 10" />
           </div>
           <div  className="input">
             <label>Supply</label>

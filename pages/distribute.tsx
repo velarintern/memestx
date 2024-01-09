@@ -153,14 +153,14 @@ const Distribute = () => {
               <label>Token name</label>
               <input
                 {...register('name', { required: true, validate: validateContractAddress})}
-                placeholder="token"
+                placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.TOKEN"
               />
             </div>
             <div className="input">
               <label>Owner</label>
               <input
                 {...register('owner', { required: true, validate: validateAddress })}
-                placeholder="STXXXXXXXXXXXXXXXX"
+                placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
               />
               {/* <div>
                 {errors.owner?.message && ( <span>{errors.owner?.message}</span> )}
@@ -170,7 +170,7 @@ const Distribute = () => {
               <label>Recipient</label>
               <input
                 {...register('recipient', { required: true, validate: validateAddress })}
-                placeholder="STXXXXXXXXXXXXXXXX"
+                placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
               />
             </div>
 
@@ -180,7 +180,7 @@ const Distribute = () => {
                 <div key={field.id} className="Holder">
                   <input
                     {...register(`holders.${index}.address` as const, { validate: validateAddress })}
-                    placeholder="STXXXXXXXXXXXXXXXX"
+                    placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
                   />
                   <NumericFormat 
                     {...register(`holders.${index}.amount` as const, { required: true, min: 1 })}
@@ -188,7 +188,7 @@ const Distribute = () => {
                     min={1}
                     decimalScale={0}
                     onValueChange={(args) => setAmount(index, args)}
-                    placeholder="Tokens"
+                    placeholder="No of Tokens (100XXXXX)"
                   />
                   <button className="X" type="button" onClick={() => remove(index)}>X</button>
                 </div>
