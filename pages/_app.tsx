@@ -6,6 +6,7 @@ import "../styles/globals.css";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useConnect } from '../hooks/useConnect';
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 function MyApp({ Component, pageProps }) {
   const { session, isConnected } = useAuth();
@@ -40,12 +41,12 @@ function MyApp({ Component, pageProps }) {
           <h1 className='launch'>Launch your own</h1>
           <h1 className='memecoin'>Memecoin on STX</h1>
           <p className='details'>Memecoin standard and deployment tool designed to ensure a maximum safety for memecoin traders.</p>
-          <button className='launch-meme-coin'>
+          {/* <button className='launch-meme-coin'>
             <span className='text'>Launch Memecoin</span>
             <span className='icon'>
               <img src='/fi_arrow-right.svg' alt='' />
             </span>
-          </button>
+          </button> */}
 
           <div className='avatar-group'>
             <img src='avatar-group.svg' alt='' />
@@ -78,6 +79,7 @@ function MyApp({ Component, pageProps }) {
           )
         )}
       </section>
+      <ReactTooltip id="tooltip" place="bottom" />
     </>
   );
 }

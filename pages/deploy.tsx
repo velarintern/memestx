@@ -113,22 +113,50 @@ const Deploy = () => {
           title={'Creating your Meme token'}
           network={network} txId={txId} />
       ) : (
-        <form onSubmit={handleSubmit(deploy)}>
-          <h4 className="form-title">Deploy</h4>
+        <form onSubmit={handleSubmit(deploy as any)}>
+          <h4 className="form-title"></h4>
           <div className="input">
-            <label>Name</label>
+            <label className="label">
+              <span>Name</span>
+              <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Name of Token'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
             <input {...register('name', { required: true })} placeholder="Meme Name" className="form-control-material"/>
           </div>
           <div className="input">
-            <label>Symbol</label>
+            <label className="label">
+              <span>Symbol</span>
+                <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Symbol of Token'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
             <input {...register('symbol', { required: true })} placeholder="Meme" />
           </div>
           <div className="input">
-            <label>Decimals</label>
+            <label className="label">
+              <span>Decimals</span>
+                 <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Token decimals e.g 6'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
             <input type="number" {...register('decimals', { required: true, min: 0, max: 10 })} placeholder="0 - 10" />
           </div>
           <div  className="input">
-            <label>Supply</label>
+            <label className="label">
+              <span>Supply</span>
+                 <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Token Supply e.g 10,000,000,000'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
             <Controller
               control={control}
               name="supply"
@@ -147,7 +175,14 @@ const Deploy = () => {
             />
           </div>
           <div className="input">
-            <label>URI</label>
+            <label className="label">
+              <span>URI</span>
+                 <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Token URI e.g https://example.com'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
             <input {...register('uri')} placeholder="https://example.com" />
           </div>
           <div className="form-footer">

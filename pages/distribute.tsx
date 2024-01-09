@@ -135,7 +135,7 @@ const Distribute = () => {
           network={network} txId={txId} />
       ) : (
         <>
-          <h4 className="form-title">Distribute</h4>
+          <h4 className="form-title"></h4>
           {(txnsLoader || txns.length > 0) && (
             <div className="deployed-contracts">
               <h2>Deployed Contracts</h2>
@@ -150,7 +150,14 @@ const Distribute = () => {
 
           <form onSubmit={handleSubmit(distribute)}>
             <div className="input">
-              <label>Token name</label>
+            <label className="label">
+              <span>Token name</span>
+                 <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Token name'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
               <input
                 {...register('name', { required: true, validate: validateContractAddress})}
                 placeholder="Token"
@@ -158,7 +165,14 @@ const Distribute = () => {
             </div>
             
             <div className="input">
-              <label>Recipient</label>
+            <label className="label">
+              <span>Recipient</span>
+                 <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Recipient address'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
               <input
                 {...register('recipient', { required: true, validate: validateAddress })}
                 placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -166,7 +180,14 @@ const Distribute = () => {
             </div>
 
             <div className="input">
-              <label>Owner</label>
+            <label className="label">
+              <span>Owner</span>
+                 <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Owner address'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+            </label>
               <input
                 {...register('owner', { required: true, validate: validateAddress })}
                 placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -178,33 +199,67 @@ const Distribute = () => {
             
 
             <div className="input">
-              <label>Holders</label>
+              {/* <label className="label">
+                <span>Holders</span>
+                   <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'My Tooltip'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+             </label> */}
               {fields.map((field, index) => (
                 <div key={field.id} className="Holder">
-                  <input
-                    {...register(`holders.${index}.address` as const, { validate: validateAddress })}
-                    placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                  />
-                  <NumericFormat 
-                    {...register(`holders.${index}.amount` as const, { required: true, min: 1 })}
-                    thousandSeparator=","
-                    min={1}
-                    decimalScale={0}
-                    onValueChange={(args) => setAmount(index, args)}
-                    placeholder="No of Tokens (100XXXXX)"
-                  />
-                  <button className="X" type="button" onClick={() => remove(index)}>X</button>
+                  <div className="input-container">
+                    <label className="label">
+                        <span>Holder { (index + 1) } Address</span>
+                          <img 
+                            data-tooltip-id="tooltip"
+                            data-tooltip-content={'Holder Address'}
+                            data-tooltip-place="right"
+                            src="/info.svg" />
+                    </label>
+                    <input
+                      {...register(`holders.${index}.address` as const, { validate: validateAddress })}
+                      placeholder="STXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                    />
+                  </div>
+                  <div className="input-container">
+                    <label className="label">
+                        <span>Token amount</span>
+                           <img 
+                data-tooltip-id="tooltip"
+                data-tooltip-content={'Token amount'}
+                data-tooltip-place="right"
+                src="/info.svg" />
+                    </label>
+                    <NumericFormat 
+                      {...register(`holders.${index}.amount` as const, { required: true, min: 1 })}
+                      thousandSeparator=","
+                      min={1}
+                      decimalScale={0}
+                      onValueChange={(args) => setAmount(index, args)}
+                      placeholder="No of Tokens (100XXXXX)"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">
+                      &nbsp;
+                    </label>
+                    <button className="X" type="button" onClick={() => remove(index)}>
+                      <img src="trash.svg" alt="" />
+                    </button>
+                  </div>
                 </div>
               ))}
-            </div>
-
-            <button type="button" className="mb-8" onClick={(e) => { 
-              e.preventDefault();
-              append({ address: '', amount: 0 })}
-            }>
-              Add holder
-            </button>
+            </div>         
             <div className="form-footer">
+              <button type="button" className="add-holder-btn" onClick={(e) => { 
+                e.preventDefault();
+                append({ address: '', amount: 0 })}
+              }>
+                Add new holder
+                <img src="/plus.svg" alt="" />
+              </button>
               <button type="submit" className="Submit deploy-btn">
                 <span>Distribute Token</span>
                 <img src="/play.svg" alt="" />

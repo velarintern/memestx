@@ -93,24 +93,28 @@ code {
 .Holder {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 10px;
   margin-bottom: 10px;
   flex-direction: row;
 }
 
+.Holder .input-container {
+  width:  100%;
+}
+
 .Holder input {
-  flex: 1
+  flex: 1;
+  width: 100%;
 }
 
 .Holder button {
-  max-width: 40px;
-  width: 35px;
-  height: 35px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(156, 76, 76);
+  background-color: #1F1F1F;
 }
 
 
@@ -399,6 +403,7 @@ h1, h2 {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 10px;
 }
 
 @media screen and (max-width: 700px) {
@@ -632,4 +637,25 @@ h1, h2 {
       background-color: #eee;
       transform: translateY(-8px);
     }
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .label img {
+    cursor: pointer;
+  }
+
+  .add-holder-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: fit-content;
+    box-shadow: 0px -3px 0px 1px #0909094A inset;
+    background: linear-gradient(0deg, #333333, #333333),
+    linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
   }
