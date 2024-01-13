@@ -1,6 +1,6 @@
 import { StacksMainnet } from "@stacks/network"
 import { Loader } from "./CirclLoader"
-import { explorerAddress } from "../src/helpers";
+import { explorerTx } from "../src/helpers";
 import { useEffect } from "react";
 
 export const TransactionStatus = (props) => {
@@ -19,7 +19,7 @@ export const TransactionStatus = (props) => {
             <Loader color={'#fff'} width={60} borderWidth={1.5} customHeight={85} />
             <h2>{ title }</h2>
             <p>Transaction is in progress. View on explorer for more info.</p>
-            <a target="_black" href={explorerAddress(txId)}>
+            <a target="_black" href={explorerTx(txId)}>
                 <span>View on explorer</span>
                 <img src="/arrow-black.svg" alt="" />
             </a>

@@ -32,7 +32,7 @@ const Deploy = () => {
   const [isMounted, setIsMounted] = useState(false)
   const [ txId, setTxId ] = useState('');
 
-  const { register, handleSubmit, setValue, control, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, control, reset,  formState: { errors } } = useForm({
       defaultValues: defaults,
   });
 3
@@ -124,7 +124,9 @@ const Deploy = () => {
                 data-tooltip-place="right"
                 src="/info.svg" />
             </label>
-            <input {...register('name', { required: true })} placeholder="Meme Name" className="form-control-material"/>
+            <input  
+                className={( errors['name'] ? 'error-input ' : '' ) +  "form-control-material" }
+              {...register('name', { required: true })} placeholder="Meme Name" />
           </div>
           <div className="input">
             <label className="label">
@@ -135,7 +137,9 @@ const Deploy = () => {
                 data-tooltip-place="right"
                 src="/info.svg" />
             </label>
-            <input {...register('symbol', { required: true })} placeholder="Meme" />
+            <input 
+              className={( errors['symbol'] ? 'error-input ' : '' ) +  "form-control-material" }
+              {...register('symbol', { required: true })} placeholder="Meme" />
           </div>
           <div className="input">
             <label className="label">
@@ -146,7 +150,9 @@ const Deploy = () => {
                 data-tooltip-place="right"
                 src="/info.svg" />
             </label>
-            <input type="number" {...register('decimals', { required: true, min: 0, max: 10 })} placeholder="0 - 10" />
+            <input 
+              className={( errors['decimals'] ? 'error-input ' : '' ) +  "form-control-material" }
+              type="number" {...register('decimals', { required: true, min: 0, max: 10 })} placeholder="0 - 10" />
           </div>
           <div  className="input">
             <label className="label">
@@ -164,6 +170,7 @@ const Deploy = () => {
               render={({ field }) => (
                   <NumericFormat
                     {...field}
+                    className={( errors['supply'] ? 'error-input ' : '' ) +  "form-control-material" }
                     thousandSeparator=","
                     min={1}
                     decimalScale={0}

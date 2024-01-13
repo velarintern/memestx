@@ -70,7 +70,7 @@ export const proxyAddress = () => {
   }
 }
 
-export const explorerAddress = (txid: string) => {
+export const explorerTx = (txid: string) => {
   const network = Config.NETWORK;
   if (network === NETWORKS.MAINNET) {
     return `https://explorer.hiro.so/txid/${txid}?chain=mainnet`;
@@ -83,9 +83,23 @@ export const explorerAddress = (txid: string) => {
   }
 }
 
+export const explorerAddress = (txid: string) => {
+  const network = Config.NETWORK;
+  if (network === NETWORKS.MAINNET) {
+    return `https://explorer.hiro.so/address/${txid}?chain=mainnet`;
+  } else if (network === NETWORKS.TESTNET) {
+    return `https://explorer.hiro.so/address/${txid}/?chain=testnet`;
+  } else if (network === NETWORKS.DEVNET) {
+    return `http://localhost:8000/address/${txid}?chain=testnet&api=http://localhost:3999`;
+  } else {
+    return `https://explorer.hiro.so/address/${txid}/?chain=testnet`;
+  }
+}
+
+
 export function openTx(data: FinishedTxData) {
   window?.open(
-      explorerAddress(data.txId),
+    explorerTx(data.txId),
       "_blank"
     )?.focus();
 }
@@ -101,4 +115,8 @@ export const getNetwork = () => {
   } else {
     return new StacksTestnet();
   }
+}
+
+export const getFirstAndLast = (val) => {
+  return `${val.substr(0, 4)} ... ${val?.substr(val?.length - 4)}`
 }

@@ -59,10 +59,10 @@ function MyApp({ Component, pageProps }) {
                 <React.Fragment>
                   <div className='form-navbar'>
                     <Link href="/deploy">
-                      <a className={ router.route === "/deploy" ? 'active' : '' } href=''>Deploy</a>
+                      <a data-interaction="Deploy" className={ router.route === "/deploy" ? 'active' : '' } href=''>Deploy</a>
                     </Link>
                     <Link href="/distribute">
-                      <a className={ router.route === "/distribute" ? 'active' : '' } href=''>Distribute</a>
+                      <a data-interaction="Distribute" className={ router.route === "/distribute" ? 'active' : '' } href=''>Distribute</a>
                     </Link>
                   </div>
                 {isConnected() ? (
