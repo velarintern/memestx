@@ -419,6 +419,11 @@ h2 {
     margin-top: 20%;
   }
 
+  .activity-table {
+    margin: 20px !important;
+    overflow-x: auto;
+  }
+
   .mobile {
     display: flex !important;
   }
@@ -876,6 +881,7 @@ h2 {
 
 .activity-table {
   max-width: 900px;
+  border-radius: 10px;
   margin: 0 auto;
 }
 .activity-table .header .input {
@@ -888,8 +894,8 @@ h2 {
   color: white;
   align-items: center;
   justify-content: space-between;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   padding: 0px 15px 0px 15px;
 }
 
@@ -989,4 +995,14 @@ h2 {
 }
 .text-right {
   text-align: right !important; 
+}
+
+.activity-table table {
+  min-width: 650px;
+}
+
+.activity-table .activity-table-scrollable {
+  overflow-x: scroll;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
