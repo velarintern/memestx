@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { openContractDeploy } from '@stacks/connect';
 import { useForm, Controller } from "react-hook-form";
 import { NumericFormat } from 'react-number-format';
 import { useAuth } from "../store/store";
-import { proxyAddress, openTx, getNetwork } from "../src/helpers";
+import { proxyAddress, openTx, getNetwork, userAddress } from "../src/helpers";
 import { PostConditionMode } from "@stacks/transactions";
 import { TransactionStatus } from "../components/TransactionStatus";
 import { Config } from "../config";
+import { Activity } from "../components/Activity";
+import { getTransactions, setTransactionLoader } from "../store/slices/transactionSlice";
+import { useDispatch } from "react-redux";
 const network = getNetwork();
 
 type FormValues = {
@@ -20,7 +23,6 @@ type FormValues = {
 const Deploy = () => {
 
   const { session, getProvider } = useAuth()
-
   const defaults = {
     name: '',
     symbol: '',
@@ -31,14 +33,38 @@ const Deploy = () => {
 
   const [isMounted, setIsMounted] = useState(false)
   const [ txId, setTxId ] = useState('');
+  const [address, setAddress] = useState<string>("");
+  const dispatch = useDispatch();
 
   const { register, handleSubmit, setValue, control, reset,  formState: { errors } } = useForm({
       defaultValues: defaults,
   });
-3
+
+  useEffect(() => {
+    if (session?.isUserSignedIn()) {
+      setAddress(userAddress(session, getNetwork()));
+    }
+  }, [session, setAddress]);
+
+  useEffect(() => {
+    dispatch(setTransactionLoader(true));
+    const interval  = setInterval(() => {
+      if (!!address) {
+        dispatch(getTransactions({ address }));
+      }
+    }, 6000);
+    return () => { clearInterval(interval) }
+  }, [address]);
+  
   useEffect(() => {
     setIsMounted(true)
   }, [setIsMounted])
+
+  // useEffect(() => {
+  //   if (!!address) {
+  //     dispatch(getTransactions({ address }));
+  //   }
+  // }, [address]);
 
   const template = (d: FormValues) => `(impl-trait '${proxyAddress()}.ft-trait.ft-trait)
 
@@ -144,7 +170,7 @@ const Deploy = () => {
           <div className="input">
             <label className="label">
               <span>Decimals</span>
-                 <img 
+                <img 
                 data-tooltip-id="tooltip"
                 data-tooltip-content={'Token decimals e.g 6'}
                 data-tooltip-place="right"
@@ -157,7 +183,7 @@ const Deploy = () => {
           <div  className="input">
             <label className="label">
               <span>Supply</span>
-                 <img 
+                <img 
                 data-tooltip-id="tooltip"
                 data-tooltip-content={'Token Supply e.g 10,000,000,000'}
                 data-tooltip-place="right"
@@ -184,7 +210,7 @@ const Deploy = () => {
           <div className="input">
             <label className="label">
               <span>URI</span>
-                 <img 
+                <img 
                 data-tooltip-id="tooltip"
                 data-tooltip-content={'Token URI e.g https://example.com'}
                 data-tooltip-place="right"

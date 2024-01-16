@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useReducer } from "react";
 import { openContractCall } from "@stacks/connect";
 import {
   contractPrincipalCV,
@@ -21,6 +21,9 @@ import {
 import { TransactionStatus } from "../components/TransactionStatus";
 import { Loader } from "../components/CirclLoader";
 import { Dropdown } from "../components/Dropdown";
+import { Activity } from "../components/Activity";
+import { useDispatch, useSelector } from "react-redux";
+import { getTransactions, setTransactionLoader } from "../store/slices/transactionSlice";
 
 const network = getNetwork();
 
@@ -43,6 +46,8 @@ const Distribute = () => {
   const [txnsLoader, setTxnsLoader] = useState(false);
   const [address, setAddress] = useState<string>("");
   const [txId, setTxId] = useState("");
+  const tx = useSelector((x: any) => x.transaction);
+  const dispatch = useDispatch();
 
   const defaults = {
     name: "",
@@ -71,76 +76,29 @@ const Distribute = () => {
     }
   );
 
-  const fetchTransactions = useCallback(async (address: string) => {
-    setTxnsLoader(true);
-    const data = await fetch(
-      `${network.coreApiUrl}/extended/v1/address/${address}/transactions`
-    );
-    data
-      .json()
-      .then((r) => {
-        setTxnsLoader(false);
-        setTxns(
-          r.results
-            .filter(
-              ({ tx_type, tx_status }) =>
-                tx_type == "smart_contract" && tx_status === "success"
-            )
-            .map((tx) => {
-              const sourceCode = String(tx.smart_contract.source_code)
-                .replace(/\n/g, " ")
-                .replace(/\s{2,}/g, "");
-              const MAX_SUPPLY = Number(
-                sourceCode
-                  .match(/\(define-constant MAX_SUPPLY+(.*?)\)\)\)/g)
-                  ?.find(Boolean)
-                  ?.match(/u+(.*?)\(/g)
-                  ?.find(Boolean)
-                  ?.replace(/[u( ]/g, "")
-              );
-              const SYMBOL = sourceCode
-                .match(/\(define-read-only \(get-symbol\)+(.*?)\)\)/g)
-                ?.find(Boolean)
-                ?.match(/\"+(.*?)\"/g)
-                ?.find(Boolean)
-                ?.replace(/[\"]/g, "");
-              const DECIMAL = Number(
-                sourceCode
-                  .match(/\(get-decimals\)+(.*?)\)/g)
-                  ?.find(Boolean)
-                  ?.match(/\u+(.*?)\)/g)
-                  ?.find(Boolean)
-                  ?.replace(/[u() ]/g, "")
-              );
-              const CONTRACT = tx.smart_contract.contract_id.split(".");
-              tx.info = {};
-              tx.info.contract_address = CONTRACT[0];
-              tx.info.contract_name = CONTRACT[1];
-              tx.info.max_supply = MAX_SUPPLY;
-              tx.info.symbol = SYMBOL;
-              tx.info.decimal = DECIMAL;
-
-              tx.info.label = tx.info.contract_name;
-              tx.info.value = tx.info.contract_name;
-
-              return tx;
-            })
-        );
-      })
-      .catch((error) => {
-        setTxnsLoader(false);
-      });
-  }, []);
-
   useEffect(() => {
     setIsMounted(true);
   }, [setIsMounted]);
 
   useEffect(() => {
-    if (!!address) {
-      fetchTransactions(address).catch(console.error);
-    }
-  }, [address, fetchTransactions]);
+    dispatch(setTransactionLoader(true));
+    const interval  = setInterval(() => {
+      if (!!address) {
+        dispatch(getTransactions({ address }));
+      }
+    }, 6000);
+    return () => { clearInterval(interval) }
+  }, [address]);
+
+  // useEffect(() => {
+  //   if (!!address) {
+  //     setTxnsLoader(true);
+  //     fetchTransactions(address).then((res) => {
+  //       setTxns(res);
+  //       setTxnsLoader(false);
+  //     }).catch(console.error);
+  //   }
+  // }, [address]);
 
   useEffect(() => {
     if (session?.isUserSignedIn()) {
@@ -234,7 +192,7 @@ const Distribute = () => {
                 onSelect={(val) => {
                   setValue(`name` as const, val.value);
                 }}
-                options={txns.map((x: any) => x.info)} />
+                options={tx.transactions.data.filter((x: any) => x.status === 'success').map((x: any) => x.info)} />
             </div>
 
             {/* 

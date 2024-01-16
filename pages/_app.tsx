@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useAuth, appConfig } from "../store/store";
+import { transactionInitialState, transactionReducer } from "../store/transaction";
 import ConnectWallet from "../components/ConnectWallet";
 
 import "../styles/globals.css";
@@ -7,12 +8,16 @@ import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useConnect } from '../hooks/useConnect';
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { Activity } from '../components/Activity';
+import { Provider } from 'react-redux'
+import { store } from '../store';
 
 function MyApp({ Component, pageProps }) {
   const { session, isConnected } = useAuth();
   const [domLoaded, setDomLoaded] = useState(false);
   const router = useRouter();
 
+  
   useEffect(() => {
     if (router.route === '/') {
       router.push('/deploy');
@@ -21,7 +26,7 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <>
+    <Provider store={store}>
       <div className="navbar">
         <h4 className='title'>MemeSTX</h4>
         <div className='actions'>
@@ -77,10 +82,11 @@ function MyApp({ Component, pageProps }) {
               </React.Fragment>
             </div>
           )
-        )}
+          )}
+        <Activity />
       </section>
       <ReactTooltip id="tooltip" place="bottom" />
-    </>
+    </Provider>
   );
 }
 
