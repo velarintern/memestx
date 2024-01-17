@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { explorerAddress, explorerTx, getFirstAndLast } from "../src/helpers"
 import { transactionInitialState, transactionReducer } from "../store/transaction";
 import { useSelector } from "react-redux";
@@ -7,6 +7,16 @@ import { Loader } from "./CirclLoader";
 export const Activity = (props) => {
     const tx = useSelector((x) => x.transaction);
     const [ search, setSearch ] = useState('');
+    const [isMounted, setIsMounted] = useState(false);
+
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, [])
+
+    if (!isMounted) {
+        return null;
+    }
 
     return (
         <div className="activity-table table-responsive">

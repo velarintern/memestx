@@ -163,18 +163,6 @@ const Distribute = () => {
       ) : (
         <>
           <h4 className="form-title"></h4>
-          {(txnsLoader || txns.length > 0) && (
-            <div className="deployed-contracts">
-              {/* <h2>Deployed Contracts</h2> */}
-              {txnsLoader && (
-                <Loader width={30} borderWidth={1} customHeight={40} />
-              )}
-              {/* {txns.map((tx: any, index) =>
-                <div className="deployed-contract" key={index}>{tx.smart_contract.contract_id}</div>
-              )} */}
-            </div>
-          )}
-
           <form onSubmit={handleSubmit(distribute)}>
             <div className={"input"}>
               <label className="label">
@@ -185,6 +173,9 @@ const Distribute = () => {
                   data-tooltip-place="right"
                   src="/info.svg"
                 />
+                {tx.transactions.loader && (
+                  <Loader width={15} borderWidth={1} customHeight={13} />
+                )}
               </label>
               <Dropdown 
                 {...register('name', { required: true, validate: validateContractAddress })}
