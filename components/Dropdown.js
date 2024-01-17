@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getFirstAndLast, explorerAddress } from "../src/helpers";
+import { getFirstAndLast, explorerAddress, explorerTx } from "../src/helpers";
 
 export const Dropdown = (props) => {
     const [ selected, setSelected ] = useState(null);
@@ -24,8 +24,8 @@ export const Dropdown = (props) => {
                             <span className="tokenname placeholder">Select Token</span>
                         )}
                         { selected && (
-                            <a target="_blank" rel="noreferrer" href={explorerAddress(selected.contract_address + '.' + selected.value)} className="hash">
-                                { getFirstAndLast(selected.contract_address) }
+                            <a target="_blank" rel="noreferrer" href={explorerTx(selected.tx_id)} className="hash">
+                                { getFirstAndLast(selected.tx_id) }
                                 <img src="/ref.svg" alt="" />
                             </a>
                         )}
@@ -57,8 +57,8 @@ export const Dropdown = (props) => {
                                 <div className="token">
                                     <span className="index">{ index + 1 }</span>
                                     <span className="tokenname">{ option.label }</span>
-                                    <a target="_blank" rel="noreferrer" href={explorerAddress(option.contract_address + '.' + option.value)} className="hash">
-                                        { getFirstAndLast(option.contract_address) }
+                                    <a target="_blank" rel="noreferrer" href={explorerTx(option.tx_id)} className="hash">
+                                        { getFirstAndLast(option.tx_id) }
                                         <img src="/ref.svg" alt="" />
                                     </a>
                                 </div>

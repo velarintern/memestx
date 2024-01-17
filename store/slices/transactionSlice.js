@@ -49,6 +49,8 @@ const fetchTransactions = async (address) => {
   
         tx.info.label = tx.info.contract_name;
         tx.info.value = tx.info.contract_name;
+        tx.info.tx_id = tx.tx_id;
+
         tx.status = 'success';
   
         return tx;
