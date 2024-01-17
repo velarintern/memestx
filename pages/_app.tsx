@@ -83,7 +83,9 @@ function MyApp({ Component, pageProps }) {
             </div>
           )
           )}
-        <Activity />
+        {isConnected() && (
+          <Activity />
+        )}
       </section>
       <ReactTooltip id="tooltip" place="bottom" />
     </Provider>
